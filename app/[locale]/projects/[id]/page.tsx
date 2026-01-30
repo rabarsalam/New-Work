@@ -7,6 +7,7 @@ import { FiArrowLeft, FiCalendar, FiMapPin, FiTag } from "react-icons/fi";
 import { getProjectById } from "@/app/Data/product";
 import FallbackImage from "@/app/components/FallbackImage";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 export default function ProjectDetailPage() {
   const t = useTranslations("ProjectsPage");
@@ -63,7 +64,9 @@ export default function ProjectDetailPage() {
         <div className="grid lg:grid-cols-3 gap-12">
           {/* Main Content */}
           <div className="lg:col-span-2">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">{t("projectOverview")}</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              {t("projectOverview")}
+            </h2>
             <p className="text-lg text-gray-600 leading-relaxed mb-8">
               {project.description}
             </p>
@@ -89,15 +92,19 @@ export default function ProjectDetailPage() {
           {/* Sidebar */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-2xl shadow-lg p-8 sticky top-24">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">{t("projectDetails")}</h3>
-              
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                {t("projectDetails")}
+              </h3>
+
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center flex-shrink-0">
                     <FiTag className="w-5 h-5 text-yellow-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 mb-1">{t("category")}</p>
+                    <p className="text-sm text-gray-500 mb-1">
+                      {t("category")}
+                    </p>
                     <p className="text-lg font-semibold text-gray-900 capitalize">
                       {project.category}
                     </p>
@@ -110,7 +117,9 @@ export default function ProjectDetailPage() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-500 mb-1">{t("year")}</p>
-                    <p className="text-lg font-semibold text-gray-900">{project.date}</p>
+                    <p className="text-lg font-semibold text-gray-900">
+                      {project.date}
+                    </p>
                   </div>
                 </div>
 
@@ -119,8 +128,12 @@ export default function ProjectDetailPage() {
                     <FiMapPin className="w-5 h-5 text-green-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 mb-1">{t("location")}</p>
-                    <p className="text-lg font-semibold text-gray-900">{project.location}</p>
+                    <p className="text-sm text-gray-500 mb-1">
+                      {t("location")}
+                    </p>
+                    <p className="text-lg font-semibold text-gray-900">
+                      {project.location}
+                    </p>
                   </div>
                 </div>
 
