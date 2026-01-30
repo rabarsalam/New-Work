@@ -114,9 +114,6 @@ export default function Navbar() {
                 href={`/${locale}`}
                 className="min-w-0 inline-flex items-center gap-2 rounded-xl px-2 py-1 hover:bg-white/60 transition"
               >
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-gray-900 to-gray-700 text-white text-sm font-bold">
-                  EL
-                </span>
                 <span className="truncate text-base sm:text-lg font-extrabold tracking-tight text-gray-900">
                   Electrical Loads
                 </span>

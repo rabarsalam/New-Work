@@ -7,6 +7,9 @@ import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 import ImageLightbox from "@/app/components/ImageLightbox";
 import { useParams, useRouter } from "next/navigation";
+import { projects } from "@/app/Data/product";
+
+const HOME_PROJECTS_COUNT = 8;
 
 export default function HomeProjects() {
   const t = useTranslations("HomePage");
@@ -17,15 +20,9 @@ export default function HomeProjects() {
   const [index, setIndex] = useState(0);
   const [open, setOpen] = useState(false);
 
-  const projects = Array.from({ length: 8 }, (_, i) => ({
-    id: i + 1,
-    image: `/images/project-${i + 1}.jpeg`,
-    title: t("projectTitle", { i: i + 1 }),
-    category: t("projectCategory", { i: i + 1 }),
-  }));
-
-  const projectImages = projects.map((p) => p.image);
-  const projectTitles = projects.map((p) => p.title);
+  const homeProjects = projects.slice(0, HOME_PROJECTS_COUNT);
+  const projectImages = homeProjects.map((p) => p.image);
+  const projectTitles = homeProjects.map((p) => p.title);
 
   const handleImageClick = (i: number, e: React.MouseEvent) => {
     e.preventDefault();
@@ -42,7 +39,7 @@ export default function HomeProjects() {
   return (
     <>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {projects.map((project, i) => (
+        {homeProjects.map((project, i) => (
           <div
             key={project.id}
             onClick={(e) => handleCardClick(project.id, e)}
@@ -61,7 +58,7 @@ export default function HomeProjects() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                 <h3 className="text-xl font-bold mb-1">{project.title}</h3>
-                <p className="text-sm text-gray-300">{project.category}</p>
+                <p className="text-sm text-gray-300 capitalize">{project.category}</p>
                 <Link
                   href={`/${locale}/projects/${project.id}`}
                   className="mt-3 inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 font-medium text-sm"

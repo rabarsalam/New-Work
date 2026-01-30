@@ -2,30 +2,22 @@
 
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { FiArrowLeft, FiCalendar, FiMapPin, FiTag } from "react-icons/fi";
+import { getProjectById } from "@/app/Data/product";
+import FallbackImage from "@/app/components/FallbackImage";
+import { notFound } from "next/navigation";
 
 export default function ProjectDetailPage() {
   const t = useTranslations("ProjectsPage");
   const params = useParams();
   const locale = params?.locale as string;
-  const projectId = parseInt(params?.id as string) || 1;
+  const projectId = parseInt(params?.id as string, 10);
+  const project = getProjectById(projectId);
 
-  // In a real app, this would fetch from an API
-  const project = {
-    id: projectId,
-    title: `Project ${projectId}`,
-    category: ["residential", "commercial", "industrial"][(projectId - 1) % 3],
-    image: `/images/project-${((projectId - 1) % 8) + 1}.jpeg`,
-    description: `This is a detailed description of Project ${projectId}. It showcases our expertise in ${["residential", "commercial", "industrial"][(projectId - 1) % 3]} electrical installations.`,
-    date: "2024",
-    location: "Kurdistan Region, Iraq",
-    images: Array.from({ length: 6 }, (_, i) => ({
-      id: i + 1,
-      src: `/images/project-${((projectId + i - 1) % 8) + 1}.jpeg`,
-    })),
-  };
+  if (!project) {
+    notFound();
+  }
 
   return (
     <main className="min-h-screen pt-20 bg-gradient-to-b from-gray-50 to-white">
@@ -71,21 +63,21 @@ export default function ProjectDetailPage() {
         <div className="grid lg:grid-cols-3 gap-12">
           {/* Main Content */}
           <div className="lg:col-span-2">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Project Overview</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">{t("projectOverview")}</h2>
             <p className="text-lg text-gray-600 leading-relaxed mb-8">
               {project.description}
             </p>
 
             {/* Gallery */}
             <div className="grid grid-cols-2 gap-4 mb-8">
-              {project.images.map((img) => (
+              {project.images.map((src, i) => (
                 <div
-                  key={img.id}
+                  key={i}
                   className="relative aspect-square rounded-xl overflow-hidden bg-gray-100"
                 >
-                  <Image
-                    src={img.src}
-                    alt={`${project.title} - Image ${img.id}`}
+                  <FallbackImage
+                    src={src}
+                    alt={`${project.title} - Image ${i + 1}`}
                     fill
                     className="object-cover"
                   />
@@ -105,7 +97,7 @@ export default function ProjectDetailPage() {
                     <FiTag className="w-5 h-5 text-yellow-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 mb-1">Category</p>
+                    <p className="text-sm text-gray-500 mb-1">{t("category")}</p>
                     <p className="text-lg font-semibold text-gray-900 capitalize">
                       {project.category}
                     </p>
@@ -117,7 +109,7 @@ export default function ProjectDetailPage() {
                     <FiCalendar className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 mb-1">Year</p>
+                    <p className="text-sm text-gray-500 mb-1">{t("year")}</p>
                     <p className="text-lg font-semibold text-gray-900">{project.date}</p>
                   </div>
                 </div>
@@ -127,7 +119,7 @@ export default function ProjectDetailPage() {
                     <FiMapPin className="w-5 h-5 text-green-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 mb-1">Location</p>
+                    <p className="text-sm text-gray-500 mb-1">{t("location")}</p>
                     <p className="text-lg font-semibold text-gray-900">{project.location}</p>
                   </div>
                 </div>
@@ -137,7 +129,7 @@ export default function ProjectDetailPage() {
                     href={`/${locale}/contact`}
                     className="block w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-gray-900 font-bold py-4 rounded-lg hover:from-yellow-600 hover:to-yellow-700 transition-all shadow-lg hover:shadow-xl text-center"
                   >
-                    Get Similar Project
+                    {t("getSimilarProject")}
                   </Link>
                 </div>
               </div>

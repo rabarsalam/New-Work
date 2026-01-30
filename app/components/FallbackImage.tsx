@@ -12,6 +12,7 @@ interface FallbackImageProps {
   className?: string;
   sizes?: string;
   priority?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLImageElement>) => void;
 }
 
 // Fallback SVG data URL
@@ -26,6 +27,7 @@ export default function FallbackImage({
   className = "",
   sizes,
   priority = false,
+  onClick,
 }: FallbackImageProps) {
   const [imgSrc, setImgSrc] = useState(src);
   const [hasError, setHasError] = useState(false);
@@ -47,6 +49,7 @@ export default function FallbackImage({
         className={className}
         onError={handleError}
         priority={priority}
+        onClick={onClick}
       />
     );
   }
@@ -60,6 +63,7 @@ export default function FallbackImage({
       className={className}
       onError={handleError}
       priority={priority}
+      onClick={onClick}
     />
   );
 }

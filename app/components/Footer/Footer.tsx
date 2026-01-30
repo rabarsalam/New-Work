@@ -63,9 +63,9 @@ export default function Footer() {
         {/* Contact */}
         <div>
           <h4 className="text-white font-semibold mb-4">{t("contactTitle")}</h4>
-          <p className="text-sm mb-2">📞 +964 770 151 9683</p>
+          <p className="text-sm mb-2">📞 {t("PhoneNumber")}</p>
           <p className="text-sm mb-2">📧 e.loads@yahoo.com</p>
-          <p className="text-sm">📍 Sulaimaniyah, Iraq</p>
+          <p className="text-sm">📍 {t("Address")}</p>
         </div>
       </div>
 

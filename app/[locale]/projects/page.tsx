@@ -4,9 +4,11 @@ import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+import FallbackImage from "@/app/components/FallbackImage";
 import { useSearchParams } from "next/navigation";
 import { FiGrid, FiHome, FiBriefcase, FiPackage } from "react-icons/fi";
 import ImageLightbox from "@/app/components/ImageLightbox";
+import { projects } from "@/app/Data/product";
 
 type FilterType = "all" | "residential" | "commercial" | "industrial";
 
@@ -38,14 +40,6 @@ export default function ProjectsPage() {
       icon: FiPackage,
     },
   ];
-
-  // Project data - in a real app, this would come from a CMS or API
-  const projects = Array.from({ length: 12 }, (_, i) => ({
-    id: i + 1,
-    image: `/images/project-${(i % 8) + 1}.jpeg`,
-    category: ["residential", "commercial", "industrial"][i % 3] as FilterType,
-    title: `Project ${i + 1}`,
-  }));
 
   const filteredProjects =
     activeFilter === "all"
@@ -120,9 +114,9 @@ export default function ProjectsPage() {
                     key={project.id}
                     className="group relative block aspect-square overflow-hidden rounded-xl bg-gray-100 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
                   >
-                    <Image
+                    <FallbackImage
                       src={project.image}
-                      alt={`${t("projectDetails")} ${project.id}`}
+                      alt={project.title}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-110 cursor-zoom-in"

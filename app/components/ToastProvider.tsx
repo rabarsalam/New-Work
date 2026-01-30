@@ -8,6 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { useTranslations } from "next-intl";
 
 type ToastType = "success" | "error" | "info";
 
@@ -32,6 +33,7 @@ export function useToast() {
 }
 
 export function ToastProvider({ children }: { children: ReactNode }) {
+  const t = useTranslations("Toast");
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const showToast = useCallback((type: ToastType, message: string) => {
@@ -39,13 +41,24 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       const id = Date.now();
       const next = [...current, { id, type, message }];
       setTimeout(() => {
-        setToasts((latest) => latest.filter((t) => t.id !== id));
+        setToasts((latest) => latest.filter((toast) => toast.id !== id));
       }, 4000);
       return next;
     });
   }, []);
 
   const value = useMemo(() => ({ showToast }), [showToast]);
+
+  const typeLabel = (type: ToastType) => {
+    switch (type) {
+      case "success":
+        return t("success");
+      case "error":
+        return t("error");
+      case "info":
+        return t("info");
+    }
+  };
 
   return (
     <ToastContext.Provider value={value}>
@@ -70,8 +83,13 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 
           return (
             <div key={toast.id} className={`${base} ${tone}`}>
-              <span className={`mt-1 h-2 w-2 rounded-full ${dot}`} />
-              <p>{toast.message}</p>
+              <span className={`mt-1 h-2 w-2 rounded-full flex-shrink-0 ${dot}`} />
+              <div className="min-w-0">
+                <p className="font-semibold text-xs uppercase tracking-wide opacity-90">
+                  {typeLabel(toast.type)}
+                </p>
+                <p className="mt-0.5">{toast.message}</p>
+              </div>
             </div>
           );
         })}

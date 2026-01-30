@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { FiZap } from "react-icons/fi";
 
 export default function PageLoader() {
+  const t = useTranslations("Loader");
   const pathname = usePathname();
   const [loading, setLoading] = useState(false);
 
@@ -31,7 +33,7 @@ export default function PageLoader() {
           <div className="w-16 h-16 border-4 border-yellow-200 border-t-yellow-500 rounded-full animate-spin"></div>
           <FiZap className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 text-yellow-500" />
         </div>
-        <p className="text-gray-600 font-medium">Loading...</p>
+        <p className="text-gray-600 font-medium">{t("loading")}</p>
       </div>
     </div>
   );
