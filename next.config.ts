@@ -4,4 +4,8 @@ const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 export default withNextIntl({
   reactStrictMode: true,
+  output: "export",
+  images: {
+    unoptimized: true,
+  },
 });

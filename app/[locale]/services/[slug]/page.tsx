@@ -269,7 +269,8 @@ export default function ServiceDetailPage() {
                   </span>
                 </div>
                 <p className="text-sm text-gray-600 mb-2">
-                  <span className="font-semibold">Client:</span> {project.client}
+                  <span className="font-semibold">Client:</span>{" "}
+                  {project.client}
                 </p>
                 <p className="text-sm text-gray-600 mb-2">
                   <span className="font-semibold">Location:</span>{" "}
@@ -359,4 +360,3 @@ export default function ServiceDetailPage() {
     </main>
   );
 }
-
