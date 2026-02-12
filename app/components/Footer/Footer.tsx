@@ -1,9 +1,10 @@
 "use client";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 export default function Footer() {
   const t = useTranslations("Footer");
+  const locale = useLocale();
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-6 py-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -20,27 +21,27 @@ export default function Footer() {
           <h4 className="text-white font-semibold mb-4">{t("links")}</h4>
           <ul className="space-y-2 text-sm">
             <li>
-              <Link href="/en" className="hover:text-white">
+              <Link href={`/${locale}`} className="hover:text-white">
                 {t("home")}
               </Link>
             </li>
             <li>
-              <Link href="/en/about" className="hover:text-white">
+              <Link href={`/${locale}/about`} className="hover:text-white">
                 {t("about")}
               </Link>
             </li>
             <li>
-              <Link href="/en/services" className="hover:text-white">
+              <Link href={`/${locale}/services`} className="hover:text-white">
                 {t("services")}
               </Link>
             </li>
             <li>
-              <Link href="/en/projects" className="hover:text-white">
+              <Link href={`/${locale}/projects`} className="hover:text-white">
                 {t("projects")}
               </Link>
             </li>
             <li>
-              <Link href="/en/contact" className="hover:text-white">
+              <Link href={`/${locale}/contact`} className="hover:text-white">
                 {t("contact")}
               </Link>
             </li>
@@ -57,15 +58,20 @@ export default function Footer() {
             <li>{t("service2")}</li>
             <li>{t("service3")}</li>
             <li>{t("service4")}</li>
+            <li>{t("service5")}</li>
+            <li>{t("service6")}</li>
           </ul>
         </div>
 
         {/* Contact */}
         <div>
           <h4 className="text-white font-semibold mb-4">{t("contactTitle")}</h4>
-          <p className="text-sm mb-2">📞 {t("PhoneNumber")}</p>
-          <p className="text-sm mb-2">📧 e.loads@yahoo.com</p>
-          <p className="text-sm">📍 {t("Address")}</p>
+          <div className="flex flex-col gap-2">
+            <p className="text-sm">📞 {t("PhoneNumber")}</p>
+            <p className="text-sm">📧 info@electricalloads.com</p>
+            <p className="text-sm">📧 Gm@electricalloads.com</p>
+            <p className="text-sm">📍 {t("Address")}</p>
+          </div>
         </div>
       </div>
 

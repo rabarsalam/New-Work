@@ -41,7 +41,24 @@ export default function RootLayout({
       lang="en"
       className={`${englishFont.variable} ${arabicFont.variable} ${kurdishFont.variable}`}
     >
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {/* Immediate redirect for static export: root → /en/ so no white page */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var p = location.pathname || '';
+                var isRoot = p === '/' || p === '' || /\\/index\\.html?$/.test(p);
+                if (isRoot) {
+                  var base = p.replace(/\\/index\\.html?$/i, '').replace(/\\/?$/, '') || '';
+                  location.replace(base + (base ? '/' : '') + 'en/');
+                }
+              })();
+            `,
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

@@ -36,36 +36,42 @@ export default function HomePage() {
       title: t("service1"),
       desc: t("service1Desc"),
       color: "from-yellow-400 to-yellow-600",
+      slug: "electrical-installations",
     },
     {
       icon: 1,
       title: t("service2"),
       desc: t("service2Desc"),
       color: "from-blue-400 to-blue-600",
+      slug: "lighting-systems",
     },
     {
       icon: 2,
       title: t("service3"),
       desc: t("service3Desc"),
       color: "from-green-400 to-green-600",
+      slug: "network-setup",
     },
     {
       icon: 3,
       title: t("service4"),
       desc: t("service4Desc"),
       color: "from-purple-400 to-purple-600",
+      slug: "shop-drawing",
     },
     {
       icon: 4,
       title: t("service5"),
       desc: t("service5Desc"),
       color: "from-red-400 to-red-600",
+      slug: "design-board",
     },
     {
       icon: 5,
       title: t("service6"),
       desc: t("service6Desc"),
       color: "from-indigo-400 to-indigo-600",
+      slug: "solar-system-panel",
     },
   ];
 
@@ -214,13 +220,17 @@ export default function HomePage() {
             </div>
 
             {/* Right Image */}
-            <div className="relative h-96 lg:h-125 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="group relative h-96 lg:h-125 rounded-2xl overflow-hidden">
               <Image
-                src="/images/project-1.jpeg"
+                src="/images/BackGround-3.jpeg"
                 alt={t("aboutImageAlt")}
                 fill
-                className="object-cover"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
+
+              {/* Overlay Shadow */}
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition duration-500" />
             </div>
           </div>
         </div>
@@ -250,44 +260,44 @@ export default function HomePage() {
             {services.map((service, index) => {
               const IconComponent = serviceIcons[service.icon];
               return (
-                <div
+                <Link
                   key={index}
-                  className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 transform hover:-translate-y-2"
+                  href={`/${locale}/services/${service.slug}`}
+                  className="group relative overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-md transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl"
                 >
-                  {/* Gradient Top Bar */}
+                  {/* Top Gradient Bar */}
                   <div
                     className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${service.color}`}
-                  ></div>
+                  />
 
                   <div className="p-8">
                     {/* Icon */}
                     <div
-                      className={`inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br ${service.color} text-white mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
+                      className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} text-white mb-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg`}
                     >
                       <IconComponent className="w-8 h-8" />
                     </div>
 
-                    {/* Content */}
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-gray-700 transition-colors">
+                    {/* Title */}
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3 transition-colors duration-300 group-hover:text-yellow-600">
                       {service.title}
                     </h3>
+
+                    {/* Description */}
                     <p className="text-gray-600 leading-relaxed mb-6">
                       {service.desc}
                     </p>
 
-                    {/* Learn More Link */}
-                    <Link
-                      href="/services"
-                      className="inline-flex items-center gap-2 text-gray-900 font-semibold hover:text-yellow-600 transition-colors group/link"
-                    >
+                    {/* Learn More */}
+                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-gray-900 group-hover:text-yellow-600 transition-colors">
                       {t("serviceLearnMore")}
-                      <FiArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
-                    </Link>
+                      <FiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </span>
                   </div>
 
-                  {/* Hover Effect */}
-                  <div className="absolute inset-0 bg-linear-to-br from-transparent to-gray-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                </div>
+                  {/* Soft Hover Glow */}
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-transparent to-gray-50 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                </Link>
               );
             })}
           </div>
@@ -345,14 +355,16 @@ export default function HomePage() {
         id="contact"
         className="py-20 md:py-32 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden"
       >
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            }}
-          ></div>
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/BackGround-2.jpeg"
+            alt="Electrical Services"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-950/95 via-gray-900/90 to-gray-900/80" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -397,12 +409,20 @@ export default function HomePage() {
                     <p className="text-gray-400 text-sm mb-1">
                       {t("contactEmailLabel")}
                     </p>
-                    <a
-                      href="mailto:e.loads@yahoo.com"
-                      className="text-white font-semibold text-lg hover:text-yellow-400 transition-colors"
-                    >
-                      e.loads@yahoo.com
-                    </a>
+                    <div className="flex flex-col ">
+                      <a
+                        href="mailto:info@electricalloads.com"
+                        className="text-white hover:text-blue-600 transition-colors"
+                      >
+                        info@electricalloads.com
+                      </a>
+                      <a
+                        href="mailto:Gm@electricalloads.com"
+                        className="text-white hover:text-blue-600 transition-colors"
+                      >
+                        Gm@electricalloads.com
+                      </a>
+                    </div>
                   </div>
                 </div>
 
@@ -415,7 +435,7 @@ export default function HomePage() {
                       {t("contactAddressLabel")}
                     </p>
                     <p className="text-white font-semibold text-lg">
-                      Kurdistan Region, Iraq
+                      {t("addressValue")}
                     </p>
                   </div>
                 </div>
@@ -453,7 +473,7 @@ export default function HomePage() {
 
               <div className="mt-6 text-center">
                 <Link
-                  href="/contact"
+                  href={`/${locale}/contact`}
                   className="inline-flex items-center gap-2 text-white hover:text-yellow-400 transition-colors group"
                 >
                   {t("contactViewFull")}

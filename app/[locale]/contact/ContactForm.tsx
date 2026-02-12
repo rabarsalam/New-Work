@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { FiSend } from "react-icons/fi";
 import { useToast } from "@/app/components/ToastProvider";
 
 export default function ContactForm() {
   const t = useTranslations("ContactPage");
   const { showToast } = useToast();
+  const locale = useLocale();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -49,7 +50,7 @@ export default function ContactForm() {
       <h2 className="text-3xl font-bold text-gray-900 mb-6">
         {t("formTitle")}
       </h2>
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6 text-gray-700">
         <div>
           <label
             htmlFor="name"
@@ -103,6 +104,7 @@ export default function ContactForm() {
             onChange={handleChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all"
             placeholder={t("formPhone")}
+            dir={locale === "ar" || locale === "ku" ? "rtl" : "ltr"}
           />
         </div>
 
@@ -122,11 +124,13 @@ export default function ContactForm() {
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all"
           >
             <option value="">{t("formSubject")}</option>
-            <option value="installation">Electrical Installation</option>
-            <option value="maintenance">Maintenance & Support</option>
-            <option value="repair">Emergency Repair</option>
-            <option value="consultation">Consultation</option>
-            <option value="other">Other</option>
+            <option value="installation">{t("formSubject1")}</option>
+            <option value="maintenance">{t("formSubject2")}</option>
+            <option value="repair">{t("formSubject3")}</option>
+            <option value="consultation">{t("formSubject4")}</option>
+            <option value="repair">{t("formSubject5")}</option>
+            <option value="consultation">{t("formSubject6")}</option>
+            <option value="other">{t("formSubject7")}</option>
           </select>
         </div>
 

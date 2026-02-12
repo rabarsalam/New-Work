@@ -62,12 +62,20 @@ export default function ContactPage() {
                     <h3 className="font-semibold text-gray-900 mb-1">
                       {t("email")}
                     </h3>
-                    <a
-                      href="mailto:e.loads@yahoo.com"
-                      className="text-gray-600 hover:text-blue-600 transition-colors"
-                    >
-                      e.loads@yahoo.com
-                    </a>
+                    <div className="flex flex-col">
+                      <a
+                        href="mailto:info@electricalloads.com"
+                        className="text-gray-600 hover:text-blue-600 transition-colors"
+                      >
+                        info@electricalloads.com
+                      </a>
+                      <a
+                        href="mailto:Gm@electricalloads.com"
+                        className="text-gray-600 hover:text-blue-600 transition-colors"
+                      >
+                        Gm@electricalloads.com
+                      </a>
+                    </div>
                   </div>
                 </div>
 

@@ -1,28 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 import ImageLightbox from "@/app/components/ImageLightbox";
-import { useParams, useRouter } from "next/navigation";
-import { projects } from "@/app/Data/product";
+import { useRouter } from "next/navigation";
+import { projects, type Locale } from "@/app/Data/product";
 
 const HOME_PROJECTS_COUNT = 8;
 
 export default function HomeProjects() {
   const t = useTranslations("HomePage");
-  const params = useParams();
+  const locale = useLocale() as Locale;
   const router = useRouter();
-  const locale = params?.locale as string;
 
   const [index, setIndex] = useState(0);
   const [open, setOpen] = useState(false);
 
   const homeProjects = projects.slice(0, HOME_PROJECTS_COUNT);
+
   const projectImages = homeProjects.map((p) => p.image);
-  const projectTitles = homeProjects.map((p) => p.title);
+  const projectTitles = homeProjects.map((p) => p.title[locale]);
 
   const handleImageClick = (i: number, e: React.MouseEvent) => {
     e.preventDefault();
@@ -47,7 +47,7 @@ export default function HomeProjects() {
           >
             <Image
               src={project.image}
-              alt={t("projectsItemAlt", { i: project.id })}
+              alt={project.title[locale]}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -57,8 +57,12 @@ export default function HomeProjects() {
             {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                <h3 className="text-xl font-bold mb-1">{project.title}</h3>
-                <p className="text-sm text-gray-300 capitalize">{project.category}</p>
+                <h3 className="text-xl font-bold mb-1">
+                  {project.title[locale]}
+                </h3>
+                <p className="text-sm text-gray-300 capitalize">
+                  {project.category}
+                </p>
                 <Link
                   href={`/${locale}/projects/${project.id}`}
                   className="mt-3 inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 font-medium text-sm"
